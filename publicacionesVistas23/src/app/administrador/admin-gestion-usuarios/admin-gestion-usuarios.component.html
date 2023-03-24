@@ -1,0 +1,144 @@
+<div class="row">
+  <div class="col-lg-4 ">
+    <ul class="breadcrumb">
+      <li><i class="fa fa-home"></i><a href="#">Administrador</a></li>
+      <li><a href="#">Gestión de Usuarios</a></li>
+      <li class="active">Usuarios</li>
+    </ul>
+  </div>
+</div>
+<!-- main -->
+<div class="content">
+  <div class="main-header">
+    <h2>Usuarios</h2>
+    <em>Sistema Dirección de Publicaciones</em>
+  </div>
+  <div class="main-content">
+    <h3 (click)="modalAddUsuario(modNuevoUsuario)"><i class="fa fa-plus-circle" title="Agregar un Usuario"></i> Agregar
+      un Usuario</h3>
+    <!-- DATA EXPORT -->
+    <div class="widget widget-table">
+      <div class="widget-header">
+        <h3><i class="fa fa-calendar"></i> Lista de Usuarios</h3> <em> - Sistema Dirección de Publicaciones</em>
+      </div>
+      <div class="widget-content">
+        <table id="tablax" class="table table-striped table-bordered" style="width:100%">
+          <thead>
+            <tr>
+              <th>Cédula</th>
+              <th>Nombres</th>
+              <th>Apellidos</th>
+              <th>Cargo</th>
+              <th>Nombramiento</th>
+              <th>Dependencia</th>
+              <th>Estado</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let objUser of vecUsuarios">
+              <td> {{objUser.strCedula}} </td>
+              <td> {{objUser.strNombres}} </td>
+              <td> {{objUser.strApellidos}} </td>
+              <td> {{objUser.strCargo}} </td>
+
+              <td class="{{objUser.claseNombra}}"> {{objUser.bitNombramiento ? 'SI' : 'NO' }} </td>
+               <td> {{objUser.strDependencia}} </td>
+              <td class="{{objUser.claseActivo}}"> {{objUser.detalleEstado}} </td>
+              <td>
+                <button style="margin-left: -10px;margin-right: -15px" class="btn btn-link" title="Editar usuario"
+                  (click)="verDataPersona(objUser, modNuevoUsuario)"> <i class="fa fa-pencil"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!-- END DATA EXPORT -->
+  </div>
+
+</div>
+<!-- /main -->
+
+
+<ng-template #modNuevoUsuario let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Datos del usuario</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+
+    <table id="tblSignos" style="width: 90%;">
+      <tr>
+        <td style="padding-left: 5%; width: 25%;">Cédula: </td>
+        <td style="padding-left: 5%; width: 75%;"> <input type="text" [(ngModel)]="vecBuscar[0]['strCedula']"
+            placeholder="Cedula del usuario" style="width: 100%; font-size: 14px;" (change)="verUsuario()" /> </td>
+      </tr>
+      <tr>
+        <td style="padding-left: 5%; width: 25%;">Nombres: </td>
+        <td style="padding-left: 5%; width: 75%;"> <input type="text" [(ngModel)]="vecBuscar[0]['strNombres']"
+            placeholder="Nombres del usuario" style="width: 100%; font-size: 14px; margin-top: 5px;"
+            [disabled]="true" /> </td>
+      </tr>
+      <tr>
+        <td style="padding-left: 5%; width: 25%;">Apellidos: </td>
+        <td style="padding-left: 5%; width: 75%;"> <input type="text" [(ngModel)]="vecBuscar[0]['strApellidos']"
+            placeholder="Apellidos del usuario" style="width: 100%; font-size: 14px; margin-top: 5px;"
+            [disabled]="true" /> </td>
+      </tr>
+      <tr>
+        <td style="padding-left: 5%; width: 25%;">Correo: </td>
+        <td style="padding-left: 5%; width: 75%;"> <input type="text" [(ngModel)]="vecBuscar[0]['strCorreo']"
+            placeholder="Correo" style="width: 100%; font-size: 14px; margin-top: 5px;" [disabled]="true" /> </td>
+      </tr>
+      <tr>
+        <td style="padding-left: 5%; width: 25%;">Teléfono: </td>
+        <td style="padding-left: 5%; width: 75%;"> <input type="text" [(ngModel)]="vecBuscar[0]['strTelefono']"
+            placeholder="Teléfono del usuario" style="width: 100%; font-size: 14px; margin-top: 5px;"
+            [disabled]="true" /> </td>
+      </tr>
+      <tr>
+        <td style="padding-left: 5%; width: 25%;">Cargo: </td>
+        <td style="padding-left: 5%; width: 75%;"> <input type="text" [(ngModel)]="vecBuscar[0]['strCargo']"
+            placeholder="Cargo del usuario" style="width: 100%; font-size: 14px; margin-top: 5px;" [disabled]="true" />
+        </td>
+      </tr>
+      <tr>
+        <td style="padding-left: 5%; width: 25%;">Dependencia: </td>
+        <td style="padding-left: 5%; width: 75%;"> <input type="text" [(ngModel)]="vecBuscar[0]['strDependencia']"
+            placeholder="Dependencia o Escuela del usuario" style="width: 100%; font-size: 14px; margin-top: 5px;" />
+        </td>
+      </tr>
+      <tr>
+        <td style="padding-left: 5%; width: 25%;">Nombramiento: </td>
+        <td style="padding-left: 5%; width: 75%;">
+          <select class="txtSigno" style="margin-top: 5px; width: 75%;" [(ngModel)]="vecBuscar[0]['bitNombramiento']">
+            <option value="true"> SI </option>
+            <option value="false"> NO</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding-left: 5%; width: 25%;">Estado: </td>
+        <td style="padding-left: 5%; width: 75%;">
+          <select class="txtSigno" style="margin-top: 5px; width: 75%;" [(ngModel)]="vecBuscar[0]['intEstado']">
+            <option value="1"> ACTIVO </option>
+            <option value="0"> NO-ACTIVO </option>
+          </select>
+        </td>
+      </tr>
+
+    </table>
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" style="background-color: #394A59;"
+      (click)="ingresarUsuario()">Guardar Usuario</button>
+    <button type="button" class="btn btn-outline-dark" style="background-color: #D9534F;"
+    (click)="cerrarModal()">Cancelar</button>
+  </div>
+</ng-template>
+
